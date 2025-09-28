@@ -41,7 +41,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
-			"subscriptionName",
+			"fullenv",
 			"location",
 			"provider",
 			"scope",
@@ -57,7 +57,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
-			"subscriptionName",
+			"fullenv",
 			"location",
 			"provider",
 			"scope",
@@ -73,7 +73,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
-			"subscriptionName",
+			"fullenv",
 			"location",
 			"provider",
 			"scope",
@@ -89,7 +89,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
-			"subscriptionName",
+			"fullenv",
 			"location",
 			"provider",
 			"scope",
@@ -202,7 +202,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAuthorizationUsage(subscription *a
 
 			labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"subscriptionName":    to.String(subscription.DisplayName),
+					"fullenv":   		   to.StringLower(subscription.DisplayName),
 					"location":            "",
 					"provider":            "microsoft.storage",
 					"scope":               "authorization",
@@ -303,8 +303,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureComputeUsage(subscription *ar
 
 				labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"subscriptionName":    to.String(subscription.DisplayName),
-					"location":            strings.ToLower(location),
+					"fullenv":   		   to.StringLower(subscription.DisplayName),					"location":            strings.ToLower(location),
 					"provider":            "microsoft.storage",
 					"scope":               "storage",
 					"quota":               to.String(resourceUsage.Name.Value),
@@ -353,8 +352,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureNetworkUsage(subscription *ar
 
 				labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"subscriptionName":    to.String(subscription.DisplayName),
-					"location":            strings.ToLower(location),
+					"fullenv":   		   to.StringLower(subscription.DisplayName),					"location":            strings.ToLower(location),
 					"provider":            "microsoft.storage",
 					"scope":               "storage",
 					"quota":               to.String(resourceUsage.Name.Value),
@@ -403,8 +401,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureStorageUsage(subscription *ar
 
 				labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"subscriptionName":    to.String(subscription.DisplayName),
-					"location":            strings.ToLower(location),
+					"fullenv":   		   to.StringLower(subscription.DisplayName),					"location":            strings.ToLower(location),
 					"provider":            "microsoft.storage",
 					"scope":               "storage",
 					"quota":               to.String(resourceUsage.Name.Value),
@@ -453,8 +450,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureMachineLearningUsage(subscrip
 
 				labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"subscriptionName":    to.String(subscription.DisplayName),
-					"location":            strings.ToLower(location),
+					"fullenv":   		   to.StringLower(subscription.DisplayName),					"location":            strings.ToLower(location),
 					"provider":            "microsoft.storage",
 					"scope":               "storage",
 					"quota":               to.String(resourceUsage.Name.Value),
