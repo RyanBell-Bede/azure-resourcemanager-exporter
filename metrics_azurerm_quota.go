@@ -205,9 +205,9 @@ func (m *MetricsCollectorAzureRmQuota) collectAuthorizationUsage(subscription *a
 					"subscriptionName":    to.String(subscription.DisplayName),
 					"location":            "",
 					"provider":            "microsoft.storage",
-					"scope":               "storage",
-					"quota":               to.String(resourceUsage.Name.Value),
-					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
+					"scope":               "authorization",
+					"quota":          	   "RoleAssignments",
+					"quotaName":           "Role Assignments",
 			}
 
 			quotaMetric.Add(labels, 1)
