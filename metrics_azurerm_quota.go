@@ -41,6 +41,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
+			"subscriptionName",
 			"location",
 			"provider",
 			"scope",
@@ -56,6 +57,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
+			"subscriptionName",
 			"location",
 			"provider",
 			"scope",
@@ -71,6 +73,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
+			"subscriptionName",
 			"location",
 			"provider",
 			"scope",
@@ -86,6 +89,7 @@ func (m *MetricsCollectorAzureRmQuota) Setup(collector *collector.Collector) {
 		},
 		[]string{
 			"subscriptionID",
+			"subscriptionName",
 			"location",
 			"provider",
 			"scope",
@@ -197,12 +201,13 @@ func (m *MetricsCollectorAzureRmQuota) collectAuthorizationUsage(subscription *a
 			limitValue := result.RoleAssignmentsLimit
 
 			labels := prometheus.Labels{
-				"subscriptionID": to.StringLower(subscription.SubscriptionID),
-				"location":       "",
-				"provider":       "microsoft.authorization",
-				"scope":          "authorization",
-				"quota":          "RoleAssignments",
-				"quotaName":      "Role Assignments",
+					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
+					"subscriptionName":    to.String(subscription.DisplayName),
+					"location":            strings.ToLower(location),
+					"provider":            "microsoft.storage",
+					"scope":               "storage",
+					"quota":               to.String(resourceUsage.Name.Value),
+					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
 			}
 
 			quotaMetric.Add(labels, 1)
@@ -297,12 +302,13 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureComputeUsage(subscription *ar
 				limitValue := float64(to.Number(resourceUsage.Limit))
 
 				labels := prometheus.Labels{
-					"subscriptionID": to.StringLower(subscription.SubscriptionID),
-					"location":       strings.ToLower(location),
-					"provider":       "microsoft.compute",
-					"scope":          "compute",
-					"quota":          to.String(resourceUsage.Name.Value),
-					"quotaName":      to.String(resourceUsage.Name.LocalizedValue),
+					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
+					"subscriptionName":    to.String(subscription.DisplayName),
+					"location":            strings.ToLower(location),
+					"provider":            "microsoft.storage",
+					"scope":               "storage",
+					"quota":               to.String(resourceUsage.Name.Value),
+					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
 				}
 
 				quotaMetric.Add(labels, 1)
@@ -346,12 +352,13 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureNetworkUsage(subscription *ar
 				limitValue := float64(to.Number(resourceUsage.Limit))
 
 				labels := prometheus.Labels{
-					"subscriptionID": to.StringLower(subscription.SubscriptionID),
-					"location":       strings.ToLower(location),
-					"provider":       "microsoft.network",
-					"scope":          "network",
-					"quota":          to.String(resourceUsage.Name.Value),
-					"quotaName":      to.String(resourceUsage.Name.LocalizedValue),
+					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
+					"subscriptionName":    to.String(subscription.DisplayName),
+					"location":            strings.ToLower(location),
+					"provider":            "microsoft.storage",
+					"scope":               "storage",
+					"quota":               to.String(resourceUsage.Name.Value),
+					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
 				}
 
 				quotaMetric.Add(labels, 1)
@@ -395,12 +402,13 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureStorageUsage(subscription *ar
 				limitValue := float64(to.Number(resourceUsage.Limit))
 
 				labels := prometheus.Labels{
-					"subscriptionID": to.StringLower(subscription.SubscriptionID),
-					"location":       strings.ToLower(location),
-					"provider":       "microsoft.storage",
-					"scope":          "storage",
-					"quota":          to.String(resourceUsage.Name.Value),
-					"quotaName":      to.String(resourceUsage.Name.LocalizedValue),
+					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
+					"subscriptionName":    to.String(subscription.DisplayName),
+					"location":            strings.ToLower(location),
+					"provider":            "microsoft.storage",
+					"scope":               "storage",
+					"quota":               to.String(resourceUsage.Name.Value),
+					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
 				}
 
 				quotaMetric.Add(labels, 1)
@@ -444,12 +452,13 @@ func (m *MetricsCollectorAzureRmQuota) collectAzureMachineLearningUsage(subscrip
 				limitValue := float64(to.Number(resourceUsage.Limit))
 
 				labels := prometheus.Labels{
-					"subscriptionID": to.StringLower(subscription.SubscriptionID),
-					"location":       strings.ToLower(location),
-					"provider":       "microsoft.machinelearningservices",
-					"scope":          "machinelearningservices",
-					"quota":          to.String(resourceUsage.Name.Value),
-					"quotaName":      to.String(resourceUsage.Name.LocalizedValue),
+					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
+					"subscriptionName":    to.String(subscription.DisplayName),
+					"location":            strings.ToLower(location),
+					"provider":            "microsoft.storage",
+					"scope":               "storage",
+					"quota":               to.String(resourceUsage.Name.Value),
+					"quotaName":           to.String(resourceUsage.Name.LocalizedValue),
 				}
 
 				quotaMetric.Add(labels, 1)
