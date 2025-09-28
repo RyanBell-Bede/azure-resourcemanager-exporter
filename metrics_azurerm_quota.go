@@ -202,7 +202,7 @@ func (m *MetricsCollectorAzureRmQuota) collectAuthorizationUsage(subscription *a
 
 			labels := prometheus.Labels{
 					"subscriptionID":      to.StringLower(subscription.SubscriptionID),
-					"fullenv":   		   to.StringLower(subscription.DisplayName),
+					"fullenv":   		   strings.ReplaceAll(to.StringLower(subscription.DisplayName), " ", "_"),					"location":            strings.ToLower(location),
 					"location":            "",
 					"provider":            "microsoft.storage",
 					"scope":               "authorization",
